@@ -90,9 +90,9 @@ if(isset($_POST['submit'])){
       <div class="container d-flex justify-content-center" style="margin-top:5%;">
          <form action="" method="post" enctype="multipart/form-data" style="width:50vw; min-width:300px;">
                 <div class="card">
-                    <img src="assets/images/profile.jfif" alt="image">
+                    <img src="assets/images/avatar.jpg" alt="image" id="image">
                     <label for="input-file">Choose Image</label>
-                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="image" required>
+                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="image"required>
                 </div>
             <div class="row mb-3">
                <div class="col">
@@ -136,7 +136,14 @@ if(isset($_POST['submit'])){
 
    <!-- Bootstrap -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+   <script>
+      let image = document.getElementById("image");
+      let input = document.getElementById("input-file");
 
+      input.onchange=()=>{
+         image.src= URL.createObjectURL(input.files[0]);
+      }
+   </script>
 </body>
 
 </html>

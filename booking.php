@@ -100,6 +100,41 @@
       </ul>
     </div>
   </div>
+
+  <div class="content col-9">
+  <?php
+    if (isset($_GET["msg"])) {
+      $msg = $_GET["msg"];
+      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+      ' . $msg . '
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>';
+    }
+    ?>
+    <a href="add_teachers.php" class="btn btn-dark mb-3" data-aos="fade-down" data-aos-duration="1500">Add New Teacher</a>
+    <table class="table table-hover text-center">
+      <thead class="table-dark" data-aos="fade-left" data-aos-duration="1500">
+        <tr>
+          <th scope="col">Book Name</th>
+          <th scope="col">category</th>
+          <th scope="col">Start Date</th>
+          <th scope="col">End Date</th>
+          <th scope="col">User</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody data-aos="fade-right" data-aos-duration="1500">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><img src="" style="max-width:40px;" class="rounded-5"></td>
+            <td><a href="" class="link-dark"><i class='bx bxs-pencil fs-5 me-3'></i></a><a href="" class="link-danger"><i class='bx bxs-user-x fs-5'></i></a></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
   
 
 
