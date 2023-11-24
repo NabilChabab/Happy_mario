@@ -1,8 +1,8 @@
 <?php
 
 
-include 'connect.php';
-$id = $_GET['id'];
+include '../connect.php';
+
 
 if(isset($_POST['submit'])){
     $f_name = $_POST['first_name'];
@@ -10,11 +10,20 @@ if(isset($_POST['submit'])){
     $cin = $_POST['cin'];
     $email = $_POST['email'];
     $gender = $_POST['gender'];
-    $requet = "UPDATE `students` SET `nom`='$f_name',`prenom`='$l_name',`cin`='$cin',`email`='$email',`gender`='$gender'  WHERE id = $id";
+    $image = $_FILES["image"]["name"];
+    $tempname = $_FILES["image"]["tmp_name"];
+    $folder = "./image/" . $image;
+    $requet = "INSERT INTO `students`(`nom`, `prenom`, `cin`, `email`, `gender` , `image`) VALUES ('$f_name','$l_name','$cin','$email','$gender' , '$image')";
     $query = mysqli_query($connect , $requet);
 
     if($query){
-        header("location:students.php?msg=student Informations Updated successfuly");
+        if(move_uploaded_file($tempname, "$image")){
+            echo "<h3>  Image uploaded successfully!</h3>";
+        }
+        else{
+            echo "<h3> Fail!</h3>";
+        }
+        header("location:students.php?msg=new student added successfuly");
     }
     else{
         echo "failed :".mysqli_error();
@@ -74,68 +83,51 @@ if(isset($_POST['submit'])){
 <body class="bg-dark text-light">
    <div class="container mt-5">
       <div class="text-center mb-4">
-         <h3>Update Student Informations</h3>
+         <h3>Add New Student</h3>
          <p class="text-muted">Complete the form below to add a new student</p>
       </div>
 
-      <?php
-        include "connect.php";
-        $requet = "SELECT * FROM `students` WHERE id = $id LIMIT 1";
-        $query = mysqli_query($connect , $requet);
-        $row = mysqli_fetch_assoc($query);
-      ?>
-
-      <div class="container d-flex justify-content-center"style="margin-top:10%;">
-         <form action="" method="post" style="width:50vw; min-width:300px;">
-            <div class="row mb-3">
-                <div class="card mb-5">
-                <?php
-         include "connect.php";
-          $requet = "SELECT * FROM `students` WHERE id = $id";
-          $query = mysqli_query($connect , $requet);
-          while($rows = mysqli_fetch_assoc($query)){
-            ?>
-            <img src="assets/images/<?php echo $rows['image'];?>">
-            <?php
-            
-        
-          }
-        ?>
-                    <!-- <img src="assets/images/profile.jfif" alt="image"> -->
+      <div class="container d-flex justify-content-center" style="margin-top:5%;">
+         <form action="" method="post" enctype="multipart/form-data" style="width:50vw; min-width:300px;">
+                <div class="card">
+                    <img src="../assets/images/avatar.jpg" alt="image" id="image">
+                    <label for="input-file">Choose Image</label>
+                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="image"required>
                 </div>
+            <div class="row mb-3">
                <div class="col">
                   <label class="form-label">First Name:</label>
-                  <input type="text" class="form-control" name="first_name" placeholder="firstname" value="<?php echo $row['nom']?>">
+                  <input type="text" class="form-control" name="first_name" placeholder="firstname" required>
                </div>
 
                <div class="col">
                   <label class="form-label">Last Name:</label>
-                  <input type="text" class="form-control" name="last_name" placeholder="lastname" value="<?php echo $row['prenom']?>">
+                  <input type="text" class="form-control" name="last_name" placeholder="lastname" required>
                </div>
             </div>
 
             <div class="mb-3">
                <label class="form-label">CIN:</label>
-               <input type="text" class="form-control" name="cin" placeholder="CIN" value="<?php echo $row['cin']?>">
+               <input type="text" class="form-control" name="cin" placeholder="CIN" required>
             </div>
 
             <div class="mb-3">
                <label class="form-label">Email:</label>
-               <input type="email" class="form-control" name="email" placeholder="name@example.com" value="<?php echo $row['email']?>">
+               <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
             </div>
 
             <div class="form-group mb-3">
                <label>Gender:</label>
                &nbsp;
-               <input type="radio" class="form-check-input" name="gender" id="male" value="male"<?php echo $row['gender']=='male'?"checked":""?>>
+               <input type="radio" class="form-check-input" name="gender" id="male" value="male">
                <label for="male" class="form-input-label">Male</label>
                &nbsp;
-               <input type="radio" class="form-check-input" name="gender" id="female" value="female" <?php echo $row['gender']=='female'?"checked":""?>>
+               <input type="radio" class="form-check-input" name="gender" id="female" value="female">
                <label for="female" class="form-input-label">Female</label>
             </div>
 
             <div class="row ms-1 mt-4">
-               <button type="submit" class="btn btn-success col-3 me-3" name="submit">Update</button>
+               <button type="submit" class="btn btn-success col-3 me-3" name="submit">Save</button>
                <a href="index.php" class="btn btn-danger col-3">Cancel</a>
             </div>
          </form>
@@ -144,7 +136,14 @@ if(isset($_POST['submit'])){
 
    <!-- Bootstrap -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-  
+   <script>
+      let image = document.getElementById("image");
+      let input = document.getElementById("input-file");
+
+      input.onchange=()=>{
+         image.src= URL.createObjectURL(input.files[0]);
+      }
+   </script>
 </body>
 
 </html>

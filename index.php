@@ -36,19 +36,19 @@
         </li>
 
         <li>
-          <a href="students.php">
+          <a href="students/students.php">
             <span class="title"><i class='bx bxs-user'></i>Students</span>
           </a>
         </li>
 
         <li>
-          <a href="teachers.php">
+          <a href="teachers/teachers.php">
             <span class="title"><i class='bx bxs-user'></i>Teachers</span>
           </a>
         </li>
 
         <li>
-          <a href="booking.php">
+          <a href="booking/booking.php">
             <span class="title"><i class='bx bxs-bookmark-alt'></i>Booking</span>
           </a>
         </li>

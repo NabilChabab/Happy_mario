@@ -8,11 +8,20 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/students.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
+
+<style>
+
+  .col-9{
+    margin-left:10%;
+  }
+</style>
 
 <body>
 
@@ -23,42 +32,42 @@
         <li>
           <a href="#" class="logo">marionette<p>high school</p></a>
           <div class="rows">
-            <img src="assets/images/add.png">
+            <img src="../assets/images/add.png">
             <h1>Add new task</h1>
           </div>
         </li>
         <li>
-          <a href="index.php">
+          <a href="../index.php">
             <span class="title"><i class='bx bxs-home-circle'></i>Dashboard</span>
           </a>
         </li>
 
         <li>
-          <a href="students.php">
+          <a href="../students/students.php">
             <span class="title"><i class='bx bxs-user'></i>Students</span>
           </a>
         </li>
 
         <li>
-          <a href="teachers.php">
+          <a href="#" class="active">
             <span class="title"><i class='bx bxs-user'></i>Teachers</span>
           </a>
         </li>
 
         <li>
-          <a href="#" class="active">
+          <a href="../booking/booking.php">
             <span class="title"><i class='bx bxs-bookmark-alt'></i>Booking</span>
           </a>
         </li>
 
         <li>
-          <a href="vistors.php">
+          <a href="../vistors.php">
             <span class="title"><i class='bx bxs-low-vision'></i>Visitors</span>
           </a>
         </li>
 
         <li>
-          <a href="settings.php">
+          <a href="../settings.php">
             <span class="title"><i class='bx bxs-cog'></i>Settings</span>
           </a>
         </li>
@@ -73,15 +82,15 @@
   <div class="header">
     <div class='bx bxs-chevron-left' id="remove"></div>
     <div class="tit">
-      <h1>Dashboard</h1>
+      <h1>Students</h1>
     </div>
     <div class="search">
       <input type="search" placeholder="Search">
       <div class="icons">
-        <img src="assets/images/bell.png" alt="" srcset="">
+        <img src="../assets/images/bell.png" alt="" srcset="">
       </div>
       <div class="admin">
-        <img src="assets/images/me.jpg" alt="" srcset="">
+        <img src="../assets/images/me.jpg" alt="" srcset="">
         <div class="name">
           <h1>CHABAB Nabil <span>admin</span></h1>
         </div>
@@ -115,23 +124,32 @@
     <table class="table table-hover text-center">
       <thead class="table-dark" data-aos="fade-left" data-aos-duration="1500">
         <tr>
-          <th scope="col">Book Name</th>
-          <th scope="col">category</th>
-          <th scope="col">Start Date</th>
-          <th scope="col">End Date</th>
-          <th scope="col">User</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">Department</th>
+          <th scope="col">Class</th>
+          <th scope="col">Profile</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody data-aos="fade-right" data-aos-duration="1500">
+        <?php
+        include "../connect.php";
+          $requet = "SELECT * FROM `teachers`";
+          $query = mysqli_query($connect , $requet);
+          while($rows = mysqli_fetch_assoc($query)){
+            ?>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><img src="" style="max-width:40px;" class="rounded-5"></td>
-            <td><a href="" class="link-dark"><i class='bx bxs-pencil fs-5 me-3'></i></a><a href="" class="link-danger"><i class='bx bxs-user-x fs-5'></i></a></td>
+            <td><?php echo $rows['nom']?></td>
+            <td><?php echo $rows['prenom']?></td>
+            <td><?php echo $rows['departement']?></td>
+            <td><?php echo $rows['classe']?></td>
+            <td><img src="../assets/images/<?php echo $rows['image'];?>" style="max-width:40px;" class="rounded-5"></td>
+            <td><a href="edit_teachers.php?id=<?php echo $rows['id']?>" class="link-dark"><i class='bx bxs-pencil fs-5 me-3'></i></a><a href="delete_teachers.php?id=<?php echo $rows['id']?>" class="link-danger"><i class='bx bxs-user-x fs-5'></i></a></td>
           </tr>
+            <?php
+          }
+        ?>
       </tbody>
     </table>
   </div>
@@ -145,5 +163,9 @@
 </body>
 
 
-<script src="assets/js/main.js"></script>
+
+<script>
+  AOS.init();
+</script>
+
 </html>

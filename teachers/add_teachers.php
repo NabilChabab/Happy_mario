@@ -1,19 +1,18 @@
 <?php
 
 
-include 'connect.php';
+include '../connect.php';
 
 
 if(isset($_POST['submit'])){
     $f_name = $_POST['first_name'];
     $l_name = $_POST['last_name'];
-    $cin = $_POST['cin'];
-    $email = $_POST['email'];
-    $gender = $_POST['gender'];
+    $department = $_POST['department'];
+    $class = $_POST['class'];
     $image = $_FILES["image"]["name"];
     $tempname = $_FILES["image"]["tmp_name"];
     $folder = "./image/" . $image;
-    $requet = "INSERT INTO `students`(`nom`, `prenom`, `cin`, `email`, `gender` , `image`) VALUES ('$f_name','$l_name','$cin','$email','$gender' , '$image')";
+    $requet = "INSERT INTO `teachers`(`nom`, `prenom`, `departement`, `classe`, `image`) VALUES ('$f_name','$l_name','$department','$class','$image')";
     $query = mysqli_query($connect , $requet);
 
     if($query){
@@ -23,7 +22,7 @@ if(isset($_POST['submit'])){
         else{
             echo "<h3> Fail!</h3>";
         }
-        header("location:students.php?msg=new student added successfuly");
+        header("location:teachers.php?msg=new teacher added successfuly");
     }
     else{
         echo "failed :".mysqli_error();
@@ -83,16 +82,16 @@ if(isset($_POST['submit'])){
 <body class="bg-dark text-light">
    <div class="container mt-5">
       <div class="text-center mb-4">
-         <h3>Add New Student</h3>
+         <h3>Add New Teacher</h3>
          <p class="text-muted">Complete the form below to add a new student</p>
       </div>
 
       <div class="container d-flex justify-content-center" style="margin-top:5%;">
          <form action="" method="post" enctype="multipart/form-data" style="width:50vw; min-width:300px;">
                 <div class="card">
-                    <img src="assets/images/avatar.jpg" alt="image" id="image">
+                    <img src="../assets/images/profile.jfif" alt="image" id="image">
                     <label for="input-file">Choose Image</label>
-                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="image"required>
+                    <input type="file" accept="image/jpg , image/png , image/jpeg" id="input-file" name="image" required>
                 </div>
             <div class="row mb-3">
                <div class="col">
@@ -107,23 +106,13 @@ if(isset($_POST['submit'])){
             </div>
 
             <div class="mb-3">
-               <label class="form-label">CIN:</label>
-               <input type="text" class="form-control" name="cin" placeholder="CIN" required>
+               <label class="form-label">Department:</label>
+               <input type="text" class="form-control" name="department" placeholder="SVT - PC - BIOF" required>
             </div>
 
             <div class="mb-3">
-               <label class="form-label">Email:</label>
-               <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
-            </div>
-
-            <div class="form-group mb-3">
-               <label>Gender:</label>
-               &nbsp;
-               <input type="radio" class="form-check-input" name="gender" id="male" value="male">
-               <label for="male" class="form-input-label">Male</label>
-               &nbsp;
-               <input type="radio" class="form-check-input" name="gender" id="female" value="female">
-               <label for="female" class="form-input-label">Female</label>
+               <label class="form-label">Class:</label>
+               <input type="text" class="form-control" name="class" placeholder="Class Name" required>
             </div>
 
             <div class="row ms-1 mt-4">

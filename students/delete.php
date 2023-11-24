@@ -1,5 +1,5 @@
 <?php
-include "connect.php";
+include "../connect.php";
 $id = $_GET["id"];
 $requet = "DELETE FROM `students` WHERE id = $id";
 $result = mysqli_query($connect, $requet);
