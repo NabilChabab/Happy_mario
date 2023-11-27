@@ -50,3 +50,9 @@ Le but de ce projet est de développer un site web from scratch qui présente un
 - Utilisation d'outils d'audit d'accessibilité.
 - Tests sur divers appareils et résolutions.
 - Conformité avec les dernières normes web.
+
+## Trello
+https://trello.com/b/03QJf1FU/brief2
+
+## UML
+https://app.diagrams.net/?src=about#G1WYe0LadcC9s5nx5gqeQPIktnG71r6VqH
