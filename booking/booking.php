@@ -1,3 +1,12 @@
+
+<?php
+include "../connect.php";
+$query = "SELECT booking.* , students.nom , teachers.nom AS teacher_name FROM `booking` INNER JOIN `students` ON booking.student_id = students.id INNER JOIN `teachers` ON booking.teacher_id = teachers.id;";
+$result = mysqli_query($connect , $query);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -92,12 +101,11 @@
   <div class="head d-flex justify-content-between">
     <h1>Overview</h1>
     <div class="dropdown date">
-      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Last Week</button>
-      <ul class="dropdown-menu rounded-4">
-        <li><button class="dropdown-item" type="button">Last Day</button></li>
-        <li><button class="dropdown-item" type="button">Last Month</button></li>
-        <li><button class="dropdown-item" type="button">Last Year</button></li>
-      </ul>
+      <select class="form-select" aria-label="Default select example" style="border:none;" name="language">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="sp">Spanish</option>
+      </select>
     </div>
   </div>
 
@@ -111,27 +119,36 @@
     </div>';
     }
     ?>
-    <a href="add_teachers.php" class="btn btn-dark mb-3" data-aos="fade-down" data-aos-duration="1500">Add New Teacher</a>
     <table class="table table-hover text-center">
       <thead class="table-dark" data-aos="fade-left" data-aos-duration="1500">
+       
         <tr>
           <th scope="col">Book Name</th>
           <th scope="col">category</th>
           <th scope="col">Start Date</th>
           <th scope="col">End Date</th>
-          <th scope="col">User</th>
+          <th scope="col">Student</th>
+          <th scope="col">Teacher</th>
           <th scope="col">Action</th>
         </tr>
+       
       </thead>
       <tbody data-aos="fade-right" data-aos-duration="1500">
+      <?php
+        while($rows = mysqli_fetch_assoc($result)){ 
+        ?>
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><img src="" style="max-width:40px;" class="rounded-5"></td>
-            <td><a href="" class="link-dark"><i class='bx bxs-pencil fs-5 me-3'></i></a><a href="" class="link-danger"><i class='bx bxs-user-x fs-5'></i></a></td>
+            <td><?php echo $rows['book_name']?></td>
+            <td><?php echo $rows['category']?></td>
+            <td><?php echo $rows['start_date']?></td>
+            <td><?php echo $rows['end_date']?></td>
+            <td><?php echo $rows['nom']?></td>
+            <td><?php echo $rows['teacher_name']?></td>
+            <td><a href="edit_booking.php?id=<?=$rows['id']?>" class="link-dark"><i class='bx bxs-pencil fs-5 me-3'></i></a><a href="delete_booking.php?id=<?=$rows['id']?>" class="link-danger"><i class='bx bxs-user-x fs-5'></i></a></td>
           </tr>
+          <?php
+        }
+        ?>
       </tbody>
     </table>
   </div>

@@ -90,12 +90,12 @@ if(isset($_POST['submit'])){
             <div class="row mb-3">
                 <div class="card mb-5">
                 <?php
-         include "connect.php";
+         include "../connect.php";
           $requet = "SELECT * FROM `students` WHERE id = $id";
           $query = mysqli_query($connect , $requet);
           while($rows = mysqli_fetch_assoc($query)){
             ?>
-            <img src="assets/images/<?php echo $rows['image'];?>">
+            <img src="../assets/images/<?php echo $rows['image']?>">
             <?php
             
         

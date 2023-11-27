@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,12 +105,11 @@
   <div class="head d-flex justify-content-between">
     <h1>Overview</h1>
     <div class="dropdown date">
-      <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Last Week</button>
-      <ul class="dropdown-menu rounded-4">
-        <li><button class="dropdown-item" type="button">Last Day</button></li>
-        <li><button class="dropdown-item" type="button">Last Month</button></li>
-        <li><button class="dropdown-item" type="button">Last Year</button></li>
-      </ul>
+      <select class="form-select" aria-label="Default select example" style="border:none;" name="language">
+        <option value="en">English</option>
+        <option value="fr">French</option>
+        <option value="sp">Spanish</option>
+      </select>
     </div>
   </div>
   <div class="content col-9">
@@ -121,7 +126,7 @@
     <table class="table table-hover text-start">
       <thead class="table-dark">
         <tr data-aos="fade-left" data-aos-duration="1500">
-          <th scope="col" class = "col-1">ID</th>
+          <th scope="col" class = "col-1">Numero</th>
           <th scope="col" class = "col-1">CIN</th>
           <th scope="col" data-aos="fade-left">First Name</th>
           <th scope="col" data-aos="fade-left">Last Name</th>
